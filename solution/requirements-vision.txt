@@ -1,0 +1,4 @@
+-r requirements.txt
+# Pin the last broadly compatible 8.3 line: unconstrained resolution on the
+# competition's Python 3.9 environment backtracks across the entire 8.4 line.
+ultralytics==8.3.0
