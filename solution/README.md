@@ -136,3 +136,13 @@ projected centres are at least 120 pixels from a trusted ball (1,351 train and
 frames exceed 0.5 confidence and four exceed 0.75. Production recovery therefore
 uses the 0.75 threshold plus multi-frame trajectory consistency; medium-confidence
 single-frame detections remain diagnostic only.
+
+`visual_player_search.py` then searched the top 25 label-free uncertainty
+intervals: 853 sampled missing-ball frames and 17,591 player crops produced 50
+high-confidence detections but only three trajectories (10 sampled points)
+that passed continuity gating. Visual inspection confirmed all three. Two lie
+in the public sanity window and correct 77/77 frames that v7 misses. However,
+`sequence_v12.py` increases public macroF1 from 0.6377 to 0.6486 while reducing
+the primary spellF1 from 0.3739 to 0.3583 because three extra transitions
+fragment spells. V12 is therefore retained as a positive visual ablation, not
+promoted over v7.
