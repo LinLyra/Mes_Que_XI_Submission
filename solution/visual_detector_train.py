@@ -19,6 +19,7 @@ def main():
     parser.add_argument("--epochs", type=int, default=60)
     parser.add_argument("--batch", type=int, default=32)
     parser.add_argument("--device", default="mps")
+    parser.add_argument("--name", default="local_ball")
     args = parser.parse_args()
     try:
         from ultralytics import YOLO
@@ -30,7 +31,7 @@ def main():
     model = YOLO(args.model)
     result = model.train(
         data=str(DATA), imgsz=160, epochs=args.epochs, batch=args.batch,
-        device=args.device, project=str(RUNS), name="local_ball", exist_ok=True,
+        device=args.device, project=str(RUNS), name=args.name, exist_ok=True,
         seed=2027, deterministic=True, patience=20, cache="disk", workers=4,
         degrees=0.0, translate=0.08, scale=0.15, fliplr=0.5,
         mosaic=0.0, mixup=0.0, copy_paste=0.0,

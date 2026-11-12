@@ -126,3 +126,13 @@ frames, no recovered frame's final state, and no possession transition. Thus
 the detector is validated as a visual component but is **not** promoted as
 v11. The next experiment searches player-centred crops near uncertain spell
 boundaries instead of trusting discontinuous gap endpoints.
+
+The first player-centred search exposed severe white-boot/grass false positives:
+171 of 176 sampled missing-ball frames exceeded 0.5 confidence. To correct
+this, `visual_detector_hard_negatives.py` automatically adds player crops whose
+projected centres are at least 120 pixels from a trusted ball (1,351 train and
+302 validation backgrounds). After eight training epochs the detector reached
+0.898 precision and 0.816 recall. On the identical player-search audit only 14
+frames exceed 0.5 confidence and four exceed 0.75. Production recovery therefore
+uses the 0.75 threshold plus multi-frame trajectory consistency; medium-confidence
+single-frame detections remain diagnostic only.
