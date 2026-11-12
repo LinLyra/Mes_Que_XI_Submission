@@ -134,7 +134,7 @@ def main():
     cap.release()
 
     (OUT / "dataset.yaml").write_text(
-        "path: .\ntrain: images/train\nval: images/val\n"
+        f"path: {OUT.resolve()}\ntrain: images/train\nval: images/val\n"
         "names:\n  0: football\n")
     print("exported:", written, "total:", sum(written.values()))
     print("private dataset:", OUT)

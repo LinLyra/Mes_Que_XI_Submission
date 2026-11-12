@@ -47,10 +47,13 @@ but it is separately licensed and is not committed.
 - Bidirectional optical flow was validated on synthetic occlusions.
 - All 43 real short gaps failed the pre-declared endpoint-consistency gate, so
   the visual module correctly abstained instead of corrupting v7.
-- A local-ball detector dataset and training pipeline have been prepared.
-- **v11 is not complete and is not the submitted model.** It still requires a
-  pretrained sports-ball detector to cross-filter weak labels, detector
-  training, missing-ball inference, temporal gating and independent validation.
+- A pretrained sports-ball model cross-filtered the weak labels, and a local
+  YOLO11n detector reached 0.930 precision / 0.881 recall on a blocked temporal
+  validation set.
+- Conservative recovery accepted 42 real missing-ball frames but changed no
+  possession transition, so **v11 is not complete and is not submitted**.
+- The next visual iteration searches player-centred crops near uncertain spell
+  boundaries instead of relying on discontinuous missing-gap endpoints.
 
 The project promotes a visual model only if it improves independently defined
 tests without introducing unstable possession transitions.

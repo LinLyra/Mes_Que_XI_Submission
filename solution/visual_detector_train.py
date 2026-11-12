@@ -9,16 +9,16 @@ import argparse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "evaluation/diagnostics/ball_detector/dataset.yaml"
-RUNS = ROOT / "evaluation/diagnostics/ball_detector/runs"
+DATA = ROOT / "evaluation/diagnostics/ball_detector_filtered/dataset.yaml"
+RUNS = ROOT / "evaluation/diagnostics/ball_detector_filtered/runs"
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="yolo11n.pt")
-    parser.add_argument("--epochs", type=int, default=80)
-    parser.add_argument("--batch", type=int, default=128)
-    parser.add_argument("--device", default="0")
+    parser.add_argument("--epochs", type=int, default=60)
+    parser.add_argument("--batch", type=int, default=32)
+    parser.add_argument("--device", default="mps")
     args = parser.parse_args()
     try:
         from ultralytics import YOLO

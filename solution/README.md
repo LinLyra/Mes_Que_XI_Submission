@@ -111,3 +111,18 @@ its heavier optional dependencies are isolated in `requirements-vision.txt`.
 The visually verified export is still weak supervision, not ground truth: a
 pretrained sports-ball model must cross-check it before fine-tuning, and v7 is
 not replaced merely because a detector can be trained.
+
+### Detector experiment status
+
+`visual_detector_crossfilter.py` performs the independent cross-check with a
+pretrained COCO sports-ball detector. It retained 676 training and 151 blocked
+validation crops. A 30-epoch YOLO11n fine-tune reached precision 0.930, recall
+0.881, mAP50 0.923 and mAP50--95 0.738 on that validation block.
+
+This detector was then tested on every real short ATD gap. A conservative
+confidence/coverage/trajectory/pitch gate accepted 7 of 43 gaps (42 frames).
+Feeding those recovered coordinates into the v7 decoder changed four context
+frames, no recovered frame's final state, and no possession transition. Thus
+the detector is validated as a visual component but is **not** promoted as
+v11. The next experiment searches player-centred crops near uncertain spell
+boundaries instead of trusting discontinuous gap endpoints.

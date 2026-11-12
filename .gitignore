@@ -36,6 +36,7 @@ data/*
 !data/README.md
 
 *.mp4
+*.pt
 *.gzip
 *.pl3container
 
