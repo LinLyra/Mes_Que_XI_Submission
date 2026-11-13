@@ -8,6 +8,7 @@ from sequence_v2 import slot_teams
 from sequence_v4 import duration_cleanup, runs
 from occlusion_bridge import bridge_occlusions
 from sequence_v13 import constrained_fusion
+from sequence_v15 import anchor_protected_cleanup
 
 
 class SequenceTests(unittest.TestCase):
@@ -56,6 +57,24 @@ class SequenceTests(unittest.TestCase):
         fused, audit = constrained_fusion(base, visual, tracks, max_bridge=2)
         np.testing.assert_array_equal(fused, base)
         self.assertEqual(len(audit), 0)
+
+    def test_short_team_spell_survives_with_persistent_anchor(self):
+        states = np.array([0] * 10 + [1] * 5 + [0] * 10, dtype=np.uint8)
+        score = np.zeros((len(states), 3), dtype=np.float32)
+        home = np.zeros(len(states), dtype=np.float32)
+        away = np.zeros(len(states), dtype=np.float32)
+        away[10:15] = 0.4
+        cleaned = anchor_protected_cleanup(
+            states, score, home, away, max_short=10, min_peak=.2, min_frames=5)
+        np.testing.assert_array_equal(cleaned, states)
+
+    def test_short_team_spell_without_anchor_is_removed(self):
+        states = np.array([0] * 10 + [1] * 5 + [0] * 10, dtype=np.uint8)
+        score = np.zeros((len(states), 3), dtype=np.float32)
+        anchor = np.zeros(len(states), dtype=np.float32)
+        cleaned = anchor_protected_cleanup(
+            states, score, anchor, anchor, max_short=10, min_peak=.2, min_frames=5)
+        np.testing.assert_array_equal(cleaned, np.zeros(len(states), dtype=np.uint8))
 
 
 if __name__ == "__main__":

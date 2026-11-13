@@ -155,3 +155,13 @@ to 0.3913 while reducing the predicted segment count from 33 to 32. The third,
 private-window trajectory produces only a 21-frame boundary extension. V13 is
 the strongest visual candidate so far, but the public sample contains only 17
 possessions and its result must not be treated as a private-leaderboard score.
+
+`sequence_v15.py` adds anchor-protected spell regularisation. Short H/A runs
+are removed only when they lack five frames of persistent physical control;
+D runs are never removed by this step. Its 125-frame candidate ceiling and
+anchor thresholds were selected on Metrica Sample Games 1 and 2: pooled
+professional control-event accuracy changes only from 89.99% to 89.78%, while
+transitions fall from 992 to 881. On the public sanity window, v15 reaches
+macroF1 0.6777 and spellF1 0.4476, exceeding both v13 (0.3913 spellF1) and the
+smooth125 reference (0.4242). This is now the leading candidate, subject to
+full-match private evaluation by the organiser.
