@@ -146,3 +146,12 @@ in the public sanity window and correct 77/77 frames that v7 misses. However,
 the primary spellF1 from 0.3739 to 0.3583 because three extra transitions
 fragment spells. V12 is therefore retained as a positive visual ablation, not
 promoted over v7.
+
+`sequence_v13.py` fixes that failure mode with spell-constrained fusion. A
+validated trajectory may extend a nearby same-team spell through dead-ball
+uncertainty or move its boundary, but may not create an isolated possession
+island. On the public sanity window this raises macroF1 to 0.6677 and spellF1
+to 0.3913 while reducing the predicted segment count from 33 to 32. The third,
+private-window trajectory produces only a 21-frame boundary extension. V13 is
+the strongest visual candidate so far, but the public sample contains only 17
+possessions and its result must not be treated as a private-leaderboard score.

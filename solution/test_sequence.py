@@ -7,6 +7,7 @@ import numpy as np
 from sequence_v2 import slot_teams
 from sequence_v4 import duration_cleanup, runs
 from occlusion_bridge import bridge_occlusions
+from sequence_v13 import constrained_fusion
 
 
 class SequenceTests(unittest.TestCase):
@@ -37,6 +38,24 @@ class SequenceTests(unittest.TestCase):
             states, dh, da, home, away, max_gap=3, flank=2, min_anchor=.3)
         np.testing.assert_array_equal(bridged, np.zeros(len(states), dtype=np.uint8))
         self.assertEqual(len(spans), 1)
+
+    def test_visual_fusion_bridges_dead_uncertainty_without_island(self):
+        base = np.array(list("AAADDDHHHH"))
+        visual = np.array(list("AAADDDAHHH"))
+        tracks = __import__("pandas").DataFrame({
+            "frame": [6], "track_id": [0], "trajectory_valid": [True]})
+        fused, audit = constrained_fusion(base, visual, tracks, max_bridge=10)
+        np.testing.assert_array_equal(fused, np.array(list("AAAAAAAHHH")))
+        self.assertEqual(len(audit), 1)
+
+    def test_visual_fusion_rejects_unanchored_island(self):
+        base = np.array(list("HHHDDDHHH"))
+        visual = np.array(list("HHHDADHHH"))
+        tracks = __import__("pandas").DataFrame({
+            "frame": [4], "track_id": [0], "trajectory_valid": [True]})
+        fused, audit = constrained_fusion(base, visual, tracks, max_bridge=2)
+        np.testing.assert_array_equal(fused, base)
+        self.assertEqual(len(audit), 0)
 
 
 if __name__ == "__main__":
