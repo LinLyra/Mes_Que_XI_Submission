@@ -164,4 +164,7 @@ professional control-event accuracy changes only from 89.99% to 89.78%, while
 transitions fall from 992 to 881. On the public sanity window, v15 reaches
 macroF1 0.6777 and spellF1 0.4476, exceeding both v13 (0.3913 spellF1) and the
 smooth125 reference (0.4242). This is now the leading candidate, subject to
-full-match private evaluation by the organiser.
+full-match private evaluation by the organiser. On held-out Sample Game 3,
+which was not used to choose these constants, event accuracy changes only from
+67.99% to 67.92% while transitions fall from 580 to 536; switch coverage within
+one second changes from 44.61% to 42.57%.
