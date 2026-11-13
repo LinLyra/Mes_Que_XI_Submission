@@ -20,7 +20,7 @@ from sequence_v3 import SMART, add_event_priors, load_events
 from sequence_v4 import add_control_anchors, runs
 from sequence_v6 import ANCHOR_WEIGHT
 from sequence_v7 import decode_v7
-from sequence_v12 import HOM, TRACKS, recovered_pitch
+from sequence_v12 import HOM, recovered_pitch
 from sequence_v13 import constrained_fusion
 from starter.load_homography import MATRIX_COLUMNS
 from visual_ball_flow import fill_distances
@@ -28,6 +28,7 @@ from visual_ball_flow import fill_distances
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "evaluation/results/mes_que_data_anchor_spell_v15.csv"
+TRACKS = ROOT / "evaluation/diagnostics/player_search_top50.csv"
 MAX_SHORT_TEAM_RUN = 125
 MIN_ANCHOR_PEAK = 0.20
 MIN_ANCHOR_FRAMES = 5

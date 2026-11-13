@@ -28,6 +28,7 @@ evaluation/reports/
 evaluation/scoreboard.csv
 evaluation/diagnostics/
 external_data/
+external_data
 
 # -- gated data --------------------------------------------------------------------------------
 # data/ is committed empty, with only its README, so the folder participants are told to unpack
@@ -63,6 +64,7 @@ organizers/
 __pycache__/
 *.py[cod]
 .venv/
+.vision/
 venv/
 env/
 .DS_Store

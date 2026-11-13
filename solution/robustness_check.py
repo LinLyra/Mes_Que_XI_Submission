@@ -11,10 +11,11 @@ import numpy as np
 
 from sequence_v2 import META, RAW, emissions, extract, slot_teams, viterbi
 from sequence_v3 import SMART, add_event_priors, load_events
-from sequence_v4 import decode_v4
+from sequence_v4 import add_control_anchors, decode_v4
 from sequence_v5 import decode_v5, raw_ball_motion
 from sequence_v6 import decode_v6
 from sequence_v7 import decode_v7
+from sequence_v15 import anchor_protected_cleanup
 
 
 def spell_count(states: np.ndarray) -> int:
@@ -50,11 +51,16 @@ def main():
     base_v5, _, _ = decode_v5(dh, da, speed, active, events, raw_speed)
     base_v6, _, _ = decode_v6(dh, da, speed, active, events)
     base_v7, _, _ = decode_v7(dh, da, speed, active, events)
+    base_score = add_event_priors(emissions(dh, da, speed, active), events)
+    base_score, base_h, base_a = add_control_anchors(
+        base_score, dh, da, weight=1.7)
+    base_v15 = anchor_protected_cleanup(base_v7, base_score, base_h, base_a)
     observed = np.isfinite(dh) & np.isfinite(da)
 
-    print("reference spells: v2={}, v3={}, v4={}, v5={}, v6={}, v7={}".format(
+    print("reference spells: v2={}, v3={}, v4={}, v5={}, v6={}, v7={}, v15-core={}".format(
         spell_count(base_v2), spell_count(base_v3), spell_count(base_v4),
-        spell_count(base_v5), spell_count(base_v6), spell_count(base_v7)))
+        spell_count(base_v5), spell_count(base_v6), spell_count(base_v7),
+        spell_count(base_v15)))
     print("v2/v3 agreement: {:.2%}".format(np.mean(base_v2 == base_v3)))
     print("v3/v4 agreement: {:.2%}\n".format(np.mean(base_v3 == base_v4)))
     print("v4/v5 agreement: {:.2%}\n".format(np.mean(base_v4 == base_v5)))
@@ -81,6 +87,12 @@ def main():
         report(f"v6 extra missing {fraction:.0%}", base_v6, corrupted_v6, mask)
         corrupted_v7, _, _ = decode_v7(ch, ca, cs, active, events)
         report(f"v7 extra missing {fraction:.0%}", base_v7, corrupted_v7, mask)
+        corrupted_score = add_event_priors(emissions(ch, ca, cs, active), events)
+        corrupted_score, corrupted_h, corrupted_a = add_control_anchors(
+            corrupted_score, ch, ca, weight=1.7)
+        corrupted_v15 = anchor_protected_cleanup(
+            corrupted_v7, corrupted_score, corrupted_h, corrupted_a)
+        report(f"v15 extra missing {fraction:.0%}", base_v15, corrupted_v15, mask)
 
     # Distance jitter represents homography noise and small player/ball tracking
     # errors. Clamp at zero because distances cannot be negative.
@@ -100,6 +112,12 @@ def main():
     report("v6 distance jitter 0.75m", base_v6, jittered_v6, jittered)
     jittered_v7, _, _ = decode_v7(jh, ja, speed, active, events)
     report("v7 distance jitter 0.75m", base_v7, jittered_v7, jittered)
+    jittered_score = add_event_priors(emissions(jh, ja, speed, active), events)
+    jittered_score, jittered_h, jittered_a = add_control_anchors(
+        jittered_score, jh, ja, weight=1.7)
+    jittered_v15 = anchor_protected_cleanup(
+        jittered_v7, jittered_score, jittered_h, jittered_a)
+    report("v15 distance jitter 0.75m", base_v15, jittered_v15, jittered)
 
 
 if __name__ == "__main__":
