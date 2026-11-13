@@ -169,8 +169,10 @@ which was not used to choose these constants, event accuracy changes only from
 67.99% to 67.92% while transitions fall from 580 to 536; switch coverage within
 one second changes from 44.61% to 42.57%.
 
-The same frozen fusion was subsequently expanded from the top 25 to the top 50
-label-free uncertainty intervals. The search covers 1,504 missing-ball sample
-frames and 30,816 player-centred crops. One additional 11-point trajectory
-passes the existing 0.75 confidence and continuity gates. It changes 59 private
-frames from D to A, adds no transition, and leaves the public window unchanged.
+The same frozen fusion was subsequently expanded from the top 25 to the top 100
+label-free uncertainty intervals. The search covers 2,289 missing-ball sample
+frames and 46,460 player-centred crops. Three additional trajectories (23
+sampled points) pass the existing 0.75 confidence and continuity gates. Visual
+QA confirms the ball in every accepted crop. Relative to top-25 they change 180
+private frames (70 D-to-H and 110 D-to-A), add no transition, and leave the
+public window unchanged.

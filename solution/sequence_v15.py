@@ -28,7 +28,7 @@ from visual_ball_flow import fill_distances
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "evaluation/results/mes_que_data_anchor_spell_v15.csv"
-TRACKS = ROOT / "evaluation/diagnostics/player_search_top50.csv"
+TRACKS = ROOT / "evaluation/diagnostics/player_search_top100.csv"
 MAX_SHORT_TEAM_RUN = 125
 MIN_ANCHOR_PEAK = 0.20
 MIN_ANCHOR_FRAMES = 5
