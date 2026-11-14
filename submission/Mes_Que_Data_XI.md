@@ -16,25 +16,22 @@ Proximity alone is not treated as control. A control anchor requires a player
 to be within a 2.5 m capture radius, clearly closer than the opponent, and
 persistent across neighbouring frames. Weak automatic Smart Tagging priors are
 added without copying tags into the answer. A Viterbi decoder then finds a
-globally coherent H/A/D path. Strictly gated player-centred video detections
-recover three short ball trajectories. They may extend an existing spell or
-move a boundary, but cannot create an isolated possession. A final externally
-calibrated cleanup removes a short team spell only when it lacks persistent
-physical control evidence; it never removes D.
+globally coherent H/A/D path. A final externally calibrated cleanup removes a
+short team spell only when it lacks persistent physical control evidence; it
+never removes D.
 
 ## Assets used
 
 - Tactical ATD tracking and metadata: primary physical evidence.
 - Smart Tagging XML: weak phase and restart priors.
 - Public Metrica Sample Games 1, 2 and 3: external validation and calibration.
-- Tactical video and homography: gated recovery of short missing-ball tracks.
 - Official public five-minute labels: final sanity check and candidate
-  comparison, not detector training or frame-level parameter fitting.
+  pipeline verification, not training, tuning or model selection.
 
-Broadcast ATD was aligned and tested as a secondary source but excluded after
-it introduced uncertain transitions. The tactical video detector is trained
-from automatically projected ATD weak labels plus player-centred hard
-negatives. No possession labels or manual ball boxes are used.
+Broadcast ATD and tactical-video recovery were tested as secondary sources but
+excluded from the frozen submission. The former introduced uncertain
+transitions; the latter depends on a match-derived checkpoint whose public
+distribution is awaiting organiser clarification.
 
 ## External validation
 
@@ -73,20 +70,17 @@ truth.
 
 ## Training data
 
-The sequence model is rule-based. The local video detector is learned from
-automatic ATD projections from the competition match, filtered by independent
-image checks and supplemented by automatic hard negatives. External sequence
-validation uses the public Metrica Sports Sample Data and professional event
-annotations. No human-produced ball or possession annotations are used.
+The submitted model is rule-based. External validation uses the public Metrica
+Sports Sample Data and professional event annotations. No human-produced ball
+or possession annotations are used.
 
 ## Limitations
 
 Long ball occlusions, crowded challenges, recoveries, shots, and exact restart
 boundaries remain the main failure modes. Automatic player and ball tracking
 may contain identity switches and false ball locations. The Smart Tagging feed
-is automatic rather than ground truth. Only three visual trajectories pass the
-current high-precision gates, so most missing-ball intervals deliberately
-remain unresolved.
+is automatic rather than ground truth. Missing-ball intervals remain the main
+source of uncertainty because the experimental visual recovery is excluded.
 
 ## Reproduction
 
@@ -101,4 +95,4 @@ python -m venv .venv
 
 Expected SHA-256:
 
-`a5d71c9018b4a5755dbc81f4dee9f57ba3e11c3973d2a4ba85bf193429cc3b04`
+`38f3b537f637ae645844d5d851ece6b68172382c2dd42741d5bc1d124a65d576`

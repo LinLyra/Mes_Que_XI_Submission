@@ -16,13 +16,13 @@ intervals rather than merely maximising independent frame accuracy.
 
 ## Current submission
 
-The frozen submission candidate is **sequence v7**, a CPU-only temporal model
-combining:
+The frozen primary candidate is **sequence v15-core**, combining:
 
 1. player-to-ball distance, ball speed, visibility and player activity;
 2. automatic Smart Tagging priors for restarts and tactical phases;
 3. sustained-control anchors rather than nearest-player decisions alone;
-4. global Viterbi decoding and duration-aware segment cleanup.
+4. global Viterbi decoding and externally calibrated, anchor-protected segment
+   cleanup.
 
 Parameters were calibrated on separate public Metrica sample matches rather
 than repeatedly tuned against the competition's five-minute public labels.
@@ -34,6 +34,9 @@ pip install -r solution/requirements.txt
 python solution/run_final.py
 python evaluation/validate_submission.py submission/Mes_Que_Data_XI.csv
 ```
+
+This command uses only the supplied ATD, metadata and Smart Tagging files and
+reproduces the hash documented in `submission/FREEZE_MANIFEST.md`.
 
 The implementation and validation policy are documented in
 [solution/README.md](solution/README.md). The technical report is
@@ -50,10 +53,14 @@ but it is separately licensed and is not committed.
 - A pretrained sports-ball model cross-filtered the weak labels, and a local
   YOLO11n detector reached 0.930 precision / 0.881 recall on a blocked temporal
   validation set.
-- Conservative recovery accepted 42 real missing-ball frames but changed no
-  possession transition, so **v11 is not complete and is not submitted**.
-- The next visual iteration searches player-centred crops near uncertain spell
-  boundaries instead of relying on discontinuous missing-gap endpoints.
+- The top-100 experiment examines player-centred crops in label-free
+  uncertainty intervals. Six trajectories pass the fixed 0.75
+  confidence and continuity gates; fusion may move an existing boundary but
+  cannot create an isolated possession spell.
+
+The visual experiment is not part of the frozen submission while publication
+permission for its match-derived detector checkpoint is unresolved. Its local
+CSV remains a separately hashed, non-submitted candidate.
 
 The project promotes a visual model only if it improves independently defined
 tests without introducing unstable possession transitions.
