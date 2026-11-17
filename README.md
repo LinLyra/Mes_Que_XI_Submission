@@ -32,7 +32,7 @@ on 2,827 PASS/CARRY/SHOT/RECOVERY anchors.
 ```bash
 pip install -r solution/requirements.txt
 python solution/run_final.py
-python evaluation/validate_submission.py submission/Mes_Que_Data_XI.csv
+python evaluation/validate_submission.py submission/Mes_Que_XI.csv
 ```
 
 This command uses only the supplied ATD, metadata and Smart Tagging files and
@@ -40,7 +40,7 @@ reproduces the hash documented in `submission/FREEZE_MANIFEST.md`.
 
 The implementation and validation policy are documented in
 [solution/README.md](solution/README.md). The technical report is
-[submission/Mes_Que_Data_XI.md](submission/Mes_Que_Data_XI.md).
+[submission/Mes_Que_XI.md](submission/Mes_Que_XI.md).
 
 ## Experimental visual work
 

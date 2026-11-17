@@ -4,7 +4,7 @@ Generated and format-validated on 14 November 2026.
 
 | Candidate | SHA-256 | Full-match possessions | Role |
 |---|---|---:|---|
-| `Mes_Que_Data_XI.csv` | `38f3b537f637ae645844d5d851ece6b68172382c2dd42741d5bc1d124a65d576` | 480 | externally calibrated v15-core, reproducible primary |
+| `Mes_Que_XI.csv` | `38f3b537f637ae645844d5d851ece6b68172382c2dd42741d5bc1d124a65d576` | 480 | externally calibrated v15-core, reproducible primary |
 | `Mes_Que_Data_XI_v7_fallback.csv` | `af5d648a37db6051a4eadf519687393d228387efcac503d0ba6e730e3b469b68` | 597 | externally calibrated, lower-leakage fallback |
 | `Mes_Que_Data_XI_visual_pending.csv` | `a5d71c9018b4a5755dbc81f4dee9f57ba3e11c3973d2a4ba85bf193429cc3b04` | 480 | local only; not submitted pending checkpoint permission |
 

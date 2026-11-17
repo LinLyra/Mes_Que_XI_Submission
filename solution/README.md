@@ -1,4 +1,4 @@
-# Mes Que Data XI — Phase 1 pipeline
+# Mes Que XI — Phase 1 pipeline
 
 This directory contains CPU-only, reproducible possession baselines. Match data
 stays in `data/` and is excluded from Git.

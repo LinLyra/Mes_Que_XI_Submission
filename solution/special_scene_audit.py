@@ -17,7 +17,7 @@ from sequence_v3 import SMART, load_events
 from sequence_v4 import runs
 
 
-DEFAULT = ROOT / "submission/Mes_Que_Data_XI.csv"
+DEFAULT = ROOT / "submission/Mes_Que_XI.csv"
 FPS = 25
 
 

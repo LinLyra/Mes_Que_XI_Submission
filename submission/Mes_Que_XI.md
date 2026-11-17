@@ -1,4 +1,4 @@
-# Mes Que Data XI — Technical Document
+# Mes Que XI — Technical Document
 
 ## Approach
 
@@ -90,7 +90,7 @@ Use Python 3.9 or later from the repository root:
 python -m venv .venv
 .venv/bin/pip install -r solution/requirements.txt
 .venv/bin/python solution/run_final.py
-.venv/bin/python evaluation/validate_submission.py submission/Mes_Que_Data_XI.csv
+.venv/bin/python evaluation/validate_submission.py submission/Mes_Que_XI.csv
 ```
 
 Expected SHA-256:

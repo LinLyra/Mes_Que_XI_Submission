@@ -6,7 +6,7 @@ from sequence_v2 import write
 from sequence_v15_core import decode_v15_core
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "submission/Mes_Que_Data_XI.csv"
+OUT = ROOT / "submission/Mes_Que_XI.csv"
 
 
 def sha256(path):
