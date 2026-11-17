@@ -1,4 +1,4 @@
-# Mes Que Data XI
+# Mes Que XI
 
 Our submission for **More Than A Hack 2027 — Phase 1: Ball Possession**, built
 from the FC Barcelona vs Athletic Club professional match data supplied to
